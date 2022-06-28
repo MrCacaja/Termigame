@@ -2,6 +2,7 @@ package br.univali.poo.termigame;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -32,7 +33,7 @@ public abstract class Engine {
 
     protected abstract void init();
     protected abstract void update();
-    protected abstract boolean readInput();
+    protected abstract boolean readInput() throws IOException;
     protected abstract void drawGraphics();
 
     protected void draw() {
@@ -43,6 +44,10 @@ public abstract class Engine {
 
     public Collection<Drawable> getDrawables() {
         return drawables;
+    }
+
+    public KeyStroke pollInput() throws IOException {
+        return terminal.pollInput();
     }
 
     public void setDrawables(List<Drawable> drawables) {
@@ -65,14 +70,17 @@ public abstract class Engine {
     public void start() throws IOException, InterruptedException {
         init();
         screen.startScreen();
+        screen.setCursorPosition(null);
         boolean running = true;
         while (running) {
+            screen.clear();
             running = readInput();
             update();
             drawGraphics();
             screen.refresh();
-            Thread.sleep(500);
+            Thread.sleep(5);
         }
+        screen.stopScreen();
     }
 
 }

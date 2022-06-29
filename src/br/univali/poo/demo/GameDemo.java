@@ -19,7 +19,7 @@ public class GameDemo extends Engine {
     private TileMap tileMap;
     private Player player;
 
-    private int Level;
+    private int Level = 1;
 
     public GameDemo() throws IOException {
         super();

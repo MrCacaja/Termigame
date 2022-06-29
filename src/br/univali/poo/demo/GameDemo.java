@@ -30,6 +30,8 @@ public class GameDemo extends Engine {
         player = new Player(tileMap);
         this.drawables.add(tileMap);
         this.drawables.add(player);
+        this.drawables.add(new Instrucoes());
+        this.drawables.add(new HUD(this.Level));
     }
 
     protected void loadmap() {
@@ -40,6 +42,7 @@ public class GameDemo extends Engine {
             this.drawables = new ArrayList<>();
             this.drawables.add(tileMap);
             this.drawables.add(player);
+            this.drawables.add(new HUD(this.Level));
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -64,8 +67,6 @@ public class GameDemo extends Engine {
                 dirY += 1;
             if (keyChar == 'd')
                 dirX += 1;
-            if (keyChar == 'h')
-                loadmap();
             player.move(tileMap, dirX, dirY);
         }
         else if (key.getKeyType() == KeyType.EOF) {

@@ -8,6 +8,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,14 +32,14 @@ public abstract class Engine {
         drawables = new ArrayList<>();
     }
 
-    protected abstract void init();
+    protected abstract void init() throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException;
     protected abstract void update();
     protected abstract boolean readInput() throws IOException;
     protected abstract void drawGraphics();
 
     protected void draw() {
         for (Drawable drawable : this.drawables) {
-            drawable.draw(textGraphics);
+            drawable.draw(textGraphics, defaultTextColor, defaultBgColor);
         }
     }
 
@@ -67,7 +68,7 @@ public abstract class Engine {
         drawables.remove(drawable);
     }
 
-    public void start() throws IOException, InterruptedException {
+    public void start() throws IOException, InterruptedException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         init();
         screen.startScreen();
         screen.setCursorPosition(null);

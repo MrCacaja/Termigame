@@ -8,6 +8,14 @@ public class Text extends Drawable {
     private TextColor color;
     private TextColor bgColor;
 
+    public Text() {
+        this.x = 0;
+        this.y = 0;
+        this.value = "";
+        this.color = TextColor.ANSI.DEFAULT;
+        this.bgColor = TextColor.ANSI.BLACK;
+    }
+
     public Text(String value) {
         this.x = 0;
         this.y = 0;
@@ -65,7 +73,11 @@ public class Text extends Drawable {
     }
 
     @Override
-    public void draw(TextGraphics t) {
+    public void draw(TextGraphics t, TextColor defaultColor, TextColor defaultBgColor) {
+        t.setBackgroundColor(bgColor);
+        t.setForegroundColor(color);
         t.putString(x, y, value);
+        t.setForegroundColor(defaultColor);
+        t.setBackgroundColor(defaultBgColor);
     }
 }

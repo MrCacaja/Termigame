@@ -34,9 +34,7 @@ public class GameDemo extends Engine {
         try {
             tileMap = new TileMap(new File("./resources/map2.csv"), 1, 1);
             player = new Player(tileMap);
-            for (Drawable d : this.drawables) {
-                this.drawables.remove(d);
-            }
+            this.drawables = new ArrayList<>();
             this.drawables.add(tileMap);
             this.drawables.add(player);
         }

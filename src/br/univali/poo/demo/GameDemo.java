@@ -24,10 +24,25 @@ public class GameDemo extends Engine {
     }
 
     protected void init() throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        tileMap = new TileMap(new File("./resources/map.csv"), 5, 5);
+        tileMap = new TileMap(new File("./resources/map.csv"), 1, 1);
         player = new Player(tileMap);
         this.drawables.add(tileMap);
         this.drawables.add(player);
+    }
+
+    protected void loadmap() {
+        try {
+            tileMap = new TileMap(new File("./resources/map2.csv"), 1, 1);
+            player = new Player(tileMap);
+            for (Drawable d : this.drawables) {
+                this.drawables.remove(d);
+            }
+            this.drawables.add(tileMap);
+            this.drawables.add(player);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     protected void update() {
@@ -48,6 +63,8 @@ public class GameDemo extends Engine {
                 dirY += 1;
             if (keyChar == 'd')
                 dirX += 1;
+            if (keyChar == 'h')
+                loadmap();
             player.move(tileMap, dirX, dirY);
         }
         else if (key.getKeyType() == KeyType.EOF) {

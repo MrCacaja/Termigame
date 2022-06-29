@@ -1,6 +1,7 @@
 package br.univali.poo.termigame;
 
 import br.univali.poo.demo.Wall;
+import br.univali.poo.demo.Flag;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
@@ -64,7 +65,10 @@ public class TileMap extends Drawable {
     private void organizeTileset() {
         this.tileSet = new HashMap<>();
         this.tileSet.put(" ", Text.class.getName());
+        this.tileSet.put("", Text.class.getName());
         this.tileSet.put("wall", Wall.class.getName());
+        this.tileSet.put("w", Wall.class.getName()); // Eu não quero chegar na insanidade digitando wall
+        this.tileSet.put("f", Flag.class.getName());
     }
 
     public List<List<Drawable>> getContent() {

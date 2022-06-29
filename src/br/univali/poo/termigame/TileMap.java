@@ -64,6 +64,7 @@ public class TileMap extends Drawable {
 
     private void organizeTileset() {
         this.tileSet = new HashMap<>();
+        this.tileSet.put("", Text.class.getName());
         this.tileSet.put(" ", Text.class.getName());
         this.tileSet.put("", Text.class.getName());
         this.tileSet.put("wall", Wall.class.getName());

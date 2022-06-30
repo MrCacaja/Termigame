@@ -19,15 +19,34 @@ public class GameDemo extends Engine {
     private TileMap tileMap;
     private Player player;
 
+    private int Level = 1;
+
     public GameDemo() throws IOException {
         super();
     }
 
     protected void init() throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        tileMap = new TileMap(new File("./resources/map.csv"), 5, 5);
+        tileMap = new TileMap(new File("./resources/map1.csv"), 1, 1, this);
         player = new Player(tileMap);
         this.drawables.add(tileMap);
         this.drawables.add(player);
+        this.drawables.add(new Instrucoes());
+        this.drawables.add(new HUD(this.Level));
+    }
+
+    protected void loadmap() {
+        try {
+            this.Level += 1;
+            tileMap = new TileMap(new File("./resources/map" + this.Level + ".csv"), 1, 1, this);
+            player = new Player(tileMap);
+            this.drawables = new ArrayList<>();
+            this.drawables.add(tileMap);
+            this.drawables.add(player);
+            this.drawables.add(new HUD(this.Level));
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     protected void update() {

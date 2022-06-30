@@ -1,6 +1,8 @@
 package br.univali.poo.termigame;
 
 import br.univali.poo.demo.Wall;
+import br.univali.poo.demo.Flag;
+import br.univali.poo.demo.GameDemo;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
@@ -17,9 +19,12 @@ public class TileMap extends Drawable {
     private int startPosY;
     private Map<String, String> tileSet;
 
-    public TileMap(File csvFile, int startPosX, int startPosY) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    protected GameDemo GameRef;
+
+    public TileMap(File csvFile, int startPosX, int startPosY, GameDemo MainGame) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         this.content = new ArrayList<>();
         this.organizeTileset();
+        this.GameRef = MainGame;
         List<List<String>> stringsMap = new CSVReader().readFile(csvFile);
         for (List<String> stringList : stringsMap) {
             List<Drawable> textList = new ArrayList<>();
@@ -33,6 +38,9 @@ public class TileMap extends Drawable {
                         throw new InstantiationException();
                     }
                     textList.add((Drawable) newObject);
+                    if (newObject instanceof Flag) { // adiciona uma referencia pra bandeira poder chamar o proximo nivel
+                        ((Flag) newObject).setGame(MainGame);
+                    }
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException classNotFoundException) {
                     System.out.println("A classe de nome " + string + " não pôde ser instanciada");
                 }
@@ -65,7 +73,10 @@ public class TileMap extends Drawable {
         this.tileSet = new HashMap<>();
         this.tileSet.put("", Text.class.getName());
         this.tileSet.put(" ", Text.class.getName());
+        this.tileSet.put("", Text.class.getName());
         this.tileSet.put("wall", Wall.class.getName());
+        this.tileSet.put("w", Wall.class.getName()); // Eu não quero chegar na insanidade digitando wall
+        this.tileSet.put("f", Flag.class.getName());
     }
 
     public List<List<Drawable>> getContent() {

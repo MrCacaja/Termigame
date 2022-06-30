@@ -1,8 +1,6 @@
 package br.univali.poo.demo;
 
-import br.univali.poo.termigame.Drawable;
 import br.univali.poo.termigame.Engine;
-import br.univali.poo.termigame.Text;
 import br.univali.poo.termigame.TileMap;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
@@ -11,38 +9,41 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class GameDemo extends Engine {
     private TileMap tileMap;
     private Player player;
 
-    private int Level = 1;
+    private int level = 1;
+    private static GameDemo instance;
 
-    public GameDemo() throws IOException {
+    private GameDemo() {
         super();
     }
 
+    public static GameDemo getInstance() {
+        if (instance == null) instance = new GameDemo();
+        return instance;
+    }
+
     protected void init() throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        tileMap = new TileMap(new File("./resources/map1.csv"), 1, 1, this);
+        tileMap = new Labyrinth(new File("./resources/map1.csv"), 1, 1, this);
         player = new Player(tileMap);
         this.drawables.add(tileMap);
         this.drawables.add(player);
         this.drawables.add(new Instrucoes());
-        this.drawables.add(new HUD(this.Level));
+        this.drawables.add(new HUD(this.level));
     }
 
     protected void loadmap() {
         try {
-            this.Level += 1;
-            tileMap = new TileMap(new File("./resources/map" + this.Level + ".csv"), 1, 1, this);
+            this.level += 1;
+            tileMap = new Labyrinth(new File("./resources/map" + this.level + ".csv"), 1, 1, this);
             player = new Player(tileMap);
             this.drawables = new ArrayList<>();
             this.drawables.add(tileMap);
             this.drawables.add(player);
-            this.drawables.add(new HUD(this.Level));
+            this.drawables.add(new HUD(this.level));
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -50,6 +51,10 @@ public class GameDemo extends Engine {
     }
 
     protected void update() {
+    }
+
+    public TileMap getTileMap() {
+        return tileMap;
     }
 
     protected boolean readInput() throws IOException {
@@ -67,7 +72,7 @@ public class GameDemo extends Engine {
                 dirY += 1;
             if (keyChar == 'd')
                 dirX += 1;
-            player.move(tileMap, dirX, dirY);
+            player.move(dirX, dirY);
         }
         else if (key.getKeyType() == KeyType.EOF) {
             return false;

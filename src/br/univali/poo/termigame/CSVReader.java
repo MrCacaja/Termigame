@@ -2,10 +2,7 @@ package br.univali.poo.termigame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -15,7 +12,7 @@ public class CSVReader {
         try {
             Scanner scanner = new Scanner(csv);
             do {
-                arrayList.add(List.of(scanner.nextLine().split(",")));
+                arrayList.add(Arrays.asList(scanner.nextLine().split(",")));
             } while (scanner.hasNextLine());
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println("Arquivo não encontrado, enviando array vazio");

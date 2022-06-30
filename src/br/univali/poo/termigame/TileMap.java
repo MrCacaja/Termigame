@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TileMap extends Drawable {
+public abstract class TileMap extends Drawable {
     private List<List<Drawable>> content;
     private int startPosX;
     private int startPosY;
@@ -23,7 +23,7 @@ public class TileMap extends Drawable {
 
     public TileMap(File csvFile, int startPosX, int startPosY, GameDemo MainGame) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         this.content = new ArrayList<>();
-        this.organizeTileset();
+        this.tileSet = this.organizeTileset();
         this.GameRef = MainGame;
         List<List<String>> stringsMap = new CSVReader().readFile(csvFile);
         for (List<String> stringList : stringsMap) {
@@ -38,9 +38,6 @@ public class TileMap extends Drawable {
                         throw new InstantiationException();
                     }
                     textList.add((Drawable) newObject);
-                    if (newObject instanceof Flag) { // adiciona uma referencia pra bandeira poder chamar o proximo nivel
-                        ((Flag) newObject).setGame(MainGame);
-                    }
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException classNotFoundException) {
                     System.out.println("A classe de nome " + string + " não pôde ser instanciada");
                 }
@@ -69,15 +66,7 @@ public class TileMap extends Drawable {
         this.y = y;
     }
 
-    private void organizeTileset() {
-        this.tileSet = new HashMap<>();
-        this.tileSet.put("", Text.class.getName());
-        this.tileSet.put(" ", Text.class.getName());
-        this.tileSet.put("", Text.class.getName());
-        this.tileSet.put("wall", Wall.class.getName());
-        this.tileSet.put("w", Wall.class.getName()); // Eu não quero chegar na insanidade digitando wall
-        this.tileSet.put("f", Flag.class.getName());
-    }
+    protected abstract HashMap<String, String> organizeTileset();
 
     public List<List<Drawable>> getContent() {
         return content;

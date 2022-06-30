@@ -15,21 +15,25 @@ import java.util.Collection;
 import java.util.List;
 
 public abstract class Engine {
-    private final Terminal terminal;
-    private final Screen screen;
-    private final TextGraphics textGraphics;
+    private Terminal terminal;
+    private Screen screen;
+    private TextGraphics textGraphics;
     protected TextColor defaultTextColor; //NÃO USEI AINDA
     protected TextColor defaultBgColor; //NÃO USEI AINDA
     protected List<Drawable> drawables;
 
 
-    public Engine() throws IOException { //TEM QUE TRATAR ISSO
-        terminal = new DefaultTerminalFactory().createTerminal();
-        screen = new TerminalScreen(terminal);
-        textGraphics = screen.newTextGraphics();
-        defaultBgColor = TextColor.ANSI.BLACK;
-        defaultTextColor = TextColor.ANSI.DEFAULT;
-        drawables = new ArrayList<>();
+    public Engine() {
+        try {
+            terminal = new DefaultTerminalFactory().createTerminal();
+            screen = new TerminalScreen(terminal);
+            textGraphics = screen.newTextGraphics();
+            defaultBgColor = TextColor.ANSI.BLACK;
+            defaultTextColor = TextColor.ANSI.DEFAULT;
+            drawables = new ArrayList<>();
+        } catch (Exception exception) {
+            System.out.println("Ocorreu um erro ao instanciar o jogo");
+        }
     }
 
     protected abstract void init() throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException;

@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        Engine demo = new GameDemo();
+        Engine demo = GameDemo.getInstance();
         demo.start();
     }
 }

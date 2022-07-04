@@ -30,6 +30,8 @@ public class Labyrinth extends TileMap {
         tileSet.put("wall", Wall.class.getName());
         tileSet.put("w", Wall.class.getName()); // Eu não quero chegar na insanidade digitando wall
         tileSet.put("f", Flag.class.getName());
+        tileSet.put("b", Button.class.getName());
+        tileSet.put("d", Door.class.getName());
         return tileSet;
     }
 }

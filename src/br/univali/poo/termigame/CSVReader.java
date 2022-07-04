@@ -12,7 +12,7 @@ public class CSVReader {
         try {
             Scanner scanner = new Scanner(csv);
             do {
-                arrayList.add(Arrays.asList(scanner.nextLine().split(",")));
+                arrayList.add(Arrays.asList(scanner.nextLine().split(";")));
             } while (scanner.hasNextLine());
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println("Arquivo não encontrado, enviando array vazio");

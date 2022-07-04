@@ -8,6 +8,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,16 +31,30 @@ public abstract class TileMap extends Drawable {
             List<Drawable> textList = new ArrayList<>();
             for (String string : stringList) {
                 try {
-                    if (!this.tileSet.containsKey(string)) {
-                        throw new ClassNotFoundException();
+                    Object newObject;
+                    if (string.indexOf('(') != -1 && string.indexOf(')') != -1) {
+                        String params = string.substring(string.indexOf('(') + 1, string.indexOf(')'));
+                        string = string.substring(0, string.indexOf('('));
+                        if (!this.tileSet.containsKey(string)) {
+                            throw new ClassNotFoundException();
+                        }
+                        newObject = Class.forName(this.tileSet.get(string)).getDeclaredConstructor(String.class).newInstance(params.split(","));
+                    } else {
+                        if (!this.tileSet.containsKey(string)) {
+                            throw new ClassNotFoundException();
+                        }
+                        newObject = Class.forName(this.tileSet.get(string)).newInstance();
                     }
-                    Object newObject = Class.forName(this.tileSet.get(string)).newInstance();
                     if (!(newObject instanceof Drawable)) {
                         throw new InstantiationException();
                     }
                     textList.add((Drawable) newObject);
                 } catch (ClassNotFoundException | InstantiationException | IllegalAccessException classNotFoundException) {
                     System.out.println("A classe de nome " + string + " não pôde ser instanciada");
+                } catch (InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                } catch (NoSuchMethodException e) {
+                    throw new RuntimeException(e);
                 }
             }
             this.content.add(textList);

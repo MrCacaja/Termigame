@@ -72,6 +72,7 @@ public class GameDemo extends Engine {
                 dirY += 1;
             if (keyChar == 'd')
                 dirX += 1;
+            if (keyChar == 'h') System.out.println(Button.getCurrentStates());
             player.move(dirX, dirY);
         }
         else if (key.getKeyType() == KeyType.EOF) {

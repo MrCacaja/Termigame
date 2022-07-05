@@ -20,12 +20,9 @@ public abstract class TileMap extends Drawable {
     private int startPosY;
     private Map<String, String> tileSet;
 
-    protected GameDemo GameRef;
-
-    public TileMap(File csvFile, int startPosX, int startPosY, GameDemo MainGame) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public TileMap(File csvFile, int startPosX, int startPosY) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         this.content = new ArrayList<>();
         this.tileSet = this.organizeTileset();
-        this.GameRef = MainGame;
         List<List<String>> stringsMap = new CSVReader().readFile(csvFile);
         for (List<String> stringList : stringsMap) {
             List<Drawable> textList = new ArrayList<>();

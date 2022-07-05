@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Labyrinth extends TileMap {
-    public Labyrinth(File csvFile, int startPosX, int startPosY, GameDemo MainGame) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        super(csvFile, startPosX, startPosY, MainGame);
+    public Labyrinth(File csvFile, int startPosX, int startPosY) throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        super(csvFile, startPosX, startPosY);
     }
 
     public Labyrinth(List<List<Drawable>> content, int startPosX, int startPosY) {

@@ -70,5 +70,5 @@ public abstract class Activable extends Text {
         return null;
     }
 
-    public abstract void active(boolean status);
+    public abstract void activate(boolean status);
 }

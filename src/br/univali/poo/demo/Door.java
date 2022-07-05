@@ -9,15 +9,15 @@ public class Door extends Activable implements Collidable {
 
     public Door(String id) {
         super("ʭ", TextColor.ANSI.YELLOW_BRIGHT, TextColor.ANSI.YELLOW, id);
-        active(false);
+        activate(false);
     }
 
     public Door(String id, boolean openStatus) {
         super("ʭ", TextColor.ANSI.YELLOW_BRIGHT, TextColor.ANSI.YELLOW, id);
-        active(openStatus);
+        activate(openStatus);
     }
 
-    public void active(boolean status) {
+    public void activate(boolean status) {
         this.open = status;
         if (this.open) {
             this.setColor(TextColor.ANSI.BLACK);

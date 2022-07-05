@@ -69,7 +69,7 @@ public class Button extends Text implements Collidable {
     public boolean collide(Collidable collision) {
         this.setActivated(!this.activated);
         if (Activable.getActivable(this.id) != null) {
-            Activable.getActivable(this.id).active(this.activated);
+            Activable.getActivable(this.id).activate(this.activated);
         }
         return false;
     }

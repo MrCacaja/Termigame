@@ -1,6 +1,5 @@
 package br.univali.poo.demo;
 
-import br.univali.poo.termigame.Collidable;
 import br.univali.poo.termigame.Text;
 import com.googlecode.lanterna.TextColor;
 

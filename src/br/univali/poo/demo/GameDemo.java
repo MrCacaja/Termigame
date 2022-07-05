@@ -27,18 +27,18 @@ public class GameDemo extends Engine {
     }
 
     protected void init() throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        tileMap = new Labyrinth(new File("./resources/map1.csv"), 1, 1, this);
+        tileMap = new Labyrinth(new File("./resources/map1.csv"), 1, 1);
         player = new Player(tileMap);
         this.drawables.add(tileMap);
         this.drawables.add(player);
-        this.drawables.add(new Instrucoes());
+        this.drawables.add(new Instructions());
         this.drawables.add(new HUD(this.level));
     }
 
     protected void loadmap() {
         try {
             this.level += 1;
-            tileMap = new Labyrinth(new File("./resources/map" + this.level + ".csv"), 1, 1, this);
+            tileMap = new Labyrinth(new File("./resources/map" + this.level + ".csv"), 1, 1);
             player = new Player(tileMap);
             this.drawables = new ArrayList<>();
             this.drawables.add(tileMap);

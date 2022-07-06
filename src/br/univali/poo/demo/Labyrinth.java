@@ -22,20 +22,6 @@ public class Labyrinth extends TileMap {
         super(content, startPosX, startPosY, x, y);
     }
 
-    // https://www.geeksforgeeks.org/how-to-iterate-over-a-2d-list-or-list-of-lists-in-java/
-    public void RemoveObject(Drawable d){ // É uma função genérica de remoção de tile, faz sentido pra mim estar aqui.
-        for (List list : getContent()){
-            int cont = 0;
-            for (Object obj : list) {
-                if (d == obj) {
-                    list.set(cont, new Text());
-                    break;
-                }
-                cont++;
-            }
-        }
-    }
-
     @Override
     protected HashMap<String, String> organizeTileset() {
         HashMap<String, String> tileSet = new HashMap<>();

@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameDemo extends Engine {
-    private Labyrinth tileMap;
+    private TileMap tileMap;
     private Player player;
-    private HUD HUD;
-    private int Score = 0;
+    private HUD hud;
+    private int score = 0;
     private int level = 1;
     private static GameDemo instance;
 
@@ -31,11 +31,11 @@ public class GameDemo extends Engine {
     protected void init() throws FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         tileMap = new Labyrinth(new File("./resources/map1.csv"), 1, 1);
         player = new Player(tileMap);
-        HUD = new HUD(level, Score);
+        hud = new HUD(level, score);
         this.drawables.add(tileMap);
         this.drawables.add(player);
         this.drawables.add(new Instructions());
-        this.drawables.add(HUD);
+        this.drawables.add(hud);
     }
 
     protected void loadmap(boolean skip) { // Loadmap com skip false pode ser usado para caso o player morra
@@ -43,11 +43,11 @@ public class GameDemo extends Engine {
             if (skip) {this.level += 1;}
             tileMap = new Labyrinth(new File("./resources/map" + this.level + ".csv"), 1, 1);
             player = new Player(tileMap);
-            HUD = new HUD(level, Score);
+            hud = new HUD(level, score);
             this.drawables = new ArrayList<>();
             this.drawables.add(tileMap);
             this.drawables.add(player);
-            this.drawables.add(HUD);
+            this.drawables.add(hud);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -55,9 +55,9 @@ public class GameDemo extends Engine {
     }
 
     protected void collectable(Drawable collectable){
-        tileMap.RemoveObject(collectable);
-        Score++;
-        HUD.UpdateHUD(level, Score);
+        tileMap.removeObject(collectable);
+        score++;
+        hud.updateHUD(level, score);
     }
 
     protected void update() {

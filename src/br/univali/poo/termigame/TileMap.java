@@ -118,4 +118,17 @@ public abstract class TileMap extends Drawable {
             }
         }
     }
+
+    public void removeObject(Drawable d){
+        for (List list : getContent()){
+            int cont = 0;
+            for (Object obj : list) {
+                if (d == obj) {
+                    list.set(cont, new Text());
+                    break;
+                }
+                cont++;
+            }
+        }
+    }
 }

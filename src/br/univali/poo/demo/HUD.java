@@ -7,7 +7,7 @@ public class HUD extends Text {
     public HUD(int fase, int pontos) {
         super( "| Fase " + fase + " | Pontos: " + pontos + " |", TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
     }
-    public void UpdateHUD(int fase, int pontos){
+    public void updateHUD(int fase, int pontos){
         this.setValue("| Fase " + fase + " | Pontos: " + pontos + " |");
     }
 }

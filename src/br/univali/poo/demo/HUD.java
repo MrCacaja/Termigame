@@ -4,8 +4,10 @@ import br.univali.poo.termigame.Text;
 import com.googlecode.lanterna.TextColor;
 
 public class HUD extends Text {
-    public HUD(int fase) {
-        super("Fase " + fase, TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
+    public HUD(int fase, int pontos) {
+        super( "| Fase " + fase + " | Pontos: " + pontos + " |", TextColor.ANSI.WHITE, TextColor.ANSI.BLACK);
     }
-
+    public void UpdateHUD(int fase, int pontos){
+        this.setValue("| Fase " + fase + " | Pontos: " + pontos + " |");
+    }
 }
